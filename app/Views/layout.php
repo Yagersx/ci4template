@@ -29,7 +29,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Tablero Principal</a>
+                    <a href="<?= base_url('/dashboard') ?> " class="nav-link">Tablero Principal</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contacto</a>
@@ -69,7 +69,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="" role="button">
+                    <a class="nav-link" href="<?= base_url('/auth/logout') ?>" role="button">
                         Cerrar Sesión
                     </a>
                 </li>
@@ -108,7 +108,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
-                                    Forms
+                                    Empleados
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -125,19 +125,13 @@
                                         <p>Advanced Elements</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="../forms/editors.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Editors</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../forms/validation.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Validation</p>
-                                    </a>
-                                </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('/employees') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Empleados</p>
+                            </a>
                         </li>
                     </ul>
                 </nav>
@@ -147,6 +141,15 @@
         </aside>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+
+            <?php
+            if (session()->has('msg')) { ?>
+                <div class="alert alert-<?= session('msg')['type']; ?>">
+                    <p>
+                        <?= session('msg')['body']; ?>
+                    </p>
+                </div>
+            <?php } ?>
             <?= $this->renderSection('content') ?>
         </div>
         <footer class="main-footer">
@@ -174,7 +177,7 @@
     <?= script_tag('dist/js/adminlte.min.js') ?>
     <?= script_tag('plugins/chart.js/chart.min.js') ?>
 
-    <?php if ($scripts) {
+    <?php if (isset($scripts)) {
         foreach ($scripts as $script) { ?>
             <?= script_tag('assets/js/' . $script . '.js') ?>
         <?php }

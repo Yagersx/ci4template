@@ -31,7 +31,13 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Auth::index');
 $routes->post('/auth/login', 'Auth::login');
+$routes->get('/auth/logout', 'Auth::logout');
 $routes->get('/dashboard', 'Dashboard::index');
+
+$routes->get('/employees', 'Employee::index');
+$routes->match(['get', 'post'], '/employees/create', 'Employee::create');
+$routes->match(['get', 'post'], '/employees/edit/(:num)', 'Employee::edit/$1');
+$routes->get('/employees/delete/(:num)', 'Employee::delete/$1');
 
 /*
  * --------------------------------------------------------------------

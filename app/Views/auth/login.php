@@ -27,7 +27,7 @@
                 <div style="color:red;">
                     <?= validation_list_errors() ?>
                 </div>
-                <form action="/auth/login" method="post" autocomplete="off">
+                <form action="/auth/login" method="post">
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Correo electrónico" name="email">
                         <div class="input-group-append">
