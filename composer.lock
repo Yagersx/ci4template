@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ee9329fad3e4fde50f275df6cd9476e",
+    "content-hash": "302a5cc7a228ab18ca90c88e3ef03816",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -122,6 +122,57 @@
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
             "time": "2023-03-26T01:13:46+00:00"
+        },
+        {
+            "name": "codeigniter4/translations",
+            "version": "v4.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeigniter4/translations.git",
+                "reference": "7bc9a281b4c20feeb6e85c593471454f8db3131c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeigniter4/translations/zipball/7bc9a281b4c20feeb6e85c593471454f8db3131c",
+                "reference": "7bc9a281b4c20feeb6e85c593471454f8db3131c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-intl": "*",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "codeigniter/coding-standard": "^1.1",
+                "codeigniter4/codeigniter4": "4.x-dev",
+                "ext-tokenizer": "*",
+                "friendsofphp/php-cs-fixer": "^3.1",
+                "nexusphp/cs-config": "^3.3",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "project",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Translations\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Translations for CodeIgniter v4 web framework",
+            "homepage": "https://codeigniter.com",
+            "support": {
+                "forum": "http://forum.codeigniter.com/",
+                "issues": "https://github.com/codeigniter4/translations/issues",
+                "slack": "https://codeigniterchat.slack.com",
+                "source": "https://github.com/codeigniter4/translations"
+            },
+            "time": "2023-03-18T16:54:31+00:00"
         },
         {
             "name": "laminas/laminas-escaper",

@@ -1,69 +1,74 @@
-<!doctype html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gruas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <style>
-        html,
-        body {
-            height: 100%;
-        }
 
-        .form-signin {
-            max-width: 330px;
-            padding: 15px;
-        }
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
 
-        .form-signin .form-floating:focus-within {
-            z-index: 2;
-        }
+    <?= link_tag("plugins/fontawesome-free/css/all.min.css"); ?>
 
-        .form-signin input[type="email"] {
-            margin-bottom: -1px;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-        }
+    <?= link_tag("plugins/icheck-bootstrap/icheck-bootstrap.min.css"); ?>
 
-        .form-signin input[type="password"] {
-            margin-bottom: 10px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-        }
-    </style>
+    <?= link_tag("dist/css/adminlte.min.css?v=3.2.0"); ?>
 </head>
 
-<body class="d-flex justify-content-center align-items-center text-center bg-white">
+<body class="login-page" style="min-height: 466px;">
+    <div class="login-box">
 
-    <main class="form-signin w-100 m-auto">
-        <h1>Bienvenido a Gruas</h1>
-        <hr>
-        <form>
-            <h1 class="h5 mb-3 fw-normal">Ingresa tus credenciales</h1>
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="#" class="h1"><b>Gruas</b></a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Ingresa tus credenciales para iniciar sesion</p>
+                <div style="color:red;">
+                    <?= validation_list_errors() ?>
+                </div>
+                <form action="/auth/login" method="post" autocomplete="off">
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Correo electrónico" name="email">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Contraseña" name="password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Recuerdame
+                                </label>
+                            </div>
+                        </div>
 
-            <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Correo electrónico</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Contraseña</label>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesion</button>
+                        </div>
+
+                    </div>
+                </form>
+                <p class="mb-1">
+                    <a href="forgot-password.html">Olvide mi contraseña</a>
+                </p>
             </div>
 
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Recuerdame
-                </label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesión</button>
-        </form>
-    </main>
+        </div>
+
+    </div>
+    <?= script_tag("plugins/bootstrap/js/bootstrap.bundle.min.js") ?>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-    crossorigin="anonymous"></script>
 
 </html>

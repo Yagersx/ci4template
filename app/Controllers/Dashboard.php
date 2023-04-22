@@ -8,6 +8,8 @@ class Dashboard extends BaseController
 {
     public function index()
     {
-        return view('dashboard/home');
+        $data['title'] = 'Dashboard';
+        $data['scripts'] = ['dashboard/index'];
+        return view('dashboard', $data);
     }
 }
