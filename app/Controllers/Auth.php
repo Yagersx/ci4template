@@ -38,6 +38,18 @@ class Auth extends BaseController
             return redirect()->back()->withInput()->with('errors', ['password' => 'El usuario o contraseña son invalidos. Intentelo de nuevo.']);
         }
 
+        $employeeSession = [
+            'id' => $employee->id,
+            'name' => $employee->name,
+            'last_name' => $employee->last_name,
+            'email' => $employee->email,
+            'phone' => $employee->phone,
+            'role' => $employee->role
+        ];
+
+        $this->session->set('isLoggedIn', true);
+        $this->session->set('employee', $employeeSession);
+
         return redirect()->to('/dashboard');
     }
 
