@@ -66,10 +66,14 @@
                                             <?= $employee->phone; ?>
                                         </td>
                                         <td>
-                                            <a href="<?php echo base_url('employees/edit/' . $employee->employee_id); ?>"
-                                                class="btn btn-primary">Editar</a>
-                                            <a href="<?php echo base_url('employees/delete/' . $employee->employee_id); ?>"
-                                                class="btn btn-danger">Eliminar</a>
+                                            <?php if ($employee->position == 1) { ?>
+                                                <a href="<?php echo base_url('employees/edit/' . $employee->employee_id); ?>"
+                                                    class="btn btn-primary">Editar</a>
+                                            <?php } ?>
+                                            <?php if ($employee->position != 1) { ?>
+                                                <a href="<?php echo base_url('employees/delete/' . $employee->employee_id); ?>"
+                                                    class="btn btn-danger">Eliminar</a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php } ?>

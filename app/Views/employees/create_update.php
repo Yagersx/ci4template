@@ -1,7 +1,6 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -47,19 +46,35 @@
 
                             <div class="form-group">
                                 <label for="name">Nombre:</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <input type="text" class="form-control" id="name" name="name" required
+                                    value="<?= $employee->name; ?> ">
                             </div>
                             <div class="form-group">
                                 <label for="last_name">Apellido:</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name" required>
+                                <input type="text" class="form-control" id="last_name" name="last_name" required
+                                    value="<?= $employee->last_name ?>">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="email" required
+                                    value="<?= $employee->email ?>">
                             </div>
                             <div class="form-group">
                                 <label for="phone">Teléfono:</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                                <input type="tel" class="form-control" id="phone" name="phone" required minlength="10"
+                                    maxlength="10" value="<?= $employee->phone ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Dirección:</label>
+                                <input type="text" class="form-control" id="address" name="address" required
+                                    value="<?= $employee->address ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="position">Posicion:</label>
+                                <select class="form-control" id="position" name="position" required>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Empleado</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="password">Contraseña:</label>

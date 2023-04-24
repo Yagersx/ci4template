@@ -129,7 +129,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('/employees') ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-user nav-icon"></i>
                                 <p>Empleados</p>
                             </a>
                         </li>

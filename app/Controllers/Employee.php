@@ -42,6 +42,8 @@ class Employee extends BaseController
             'last_name' => 'required',
             'email' => 'required|valid_email',
             'phone' => 'required|numeric',
+            'address' => 'string',
+            'position' => 'numeric',
             'password' => 'required|min_length[8]',
             'password_confirm' => 'required|matches[password]'
         ];
@@ -57,6 +59,8 @@ class Employee extends BaseController
             'last_name' => $this->request->getPost('last_name'),
             'email' => $this->request->getPost('email'),
             'phone' => $this->request->getPost('phone'),
+            'address' => $this->request->getPost('address'),
+            'position' => $this->request->getPost('position'),
             'password' => $hashedPassword
         ];
 
