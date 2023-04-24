@@ -105,18 +105,24 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
+                            <a href="<?= base_url('/employees') ?>" class="nav-link">
+                                <i class="far fa-user nav-icon"></i>
+                                <p>Empleados</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
-                                    Empleados
+                                    Configuración
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="../forms/general.html" class="nav-link">
+                                    <a href=" <?= base_url('/positions') ?> " class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>General Elements</p>
+                                        <p>Posiciones</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -127,12 +133,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/employees') ?>" class="nav-link">
-                                <i class="far fa-user nav-icon"></i>
-                                <p>Empleados</p>
-                            </a>
-                        </li>
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

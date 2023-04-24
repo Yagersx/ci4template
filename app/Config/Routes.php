@@ -40,6 +40,7 @@ $routes->match(['get', 'post'], '/employees/create', 'Employee::create');
 $routes->match(['get', 'post'], '/employees/edit/(:num)', 'Employee::edit/$1');
 $routes->get('/employees/delete/(:num)', 'Employee::delete/$1');
 
+$routes->get('positions', 'Position::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
