@@ -39,12 +39,12 @@ class Auth extends BaseController
         }
 
         $employeeSession = [
-            'id' => $employee->id,
+            'id' => $employee->employee_id,
             'name' => $employee->name,
             'last_name' => $employee->last_name,
             'email' => $employee->email,
             'phone' => $employee->phone,
-            'role' => $employee->role
+            'position' => $employee->position
         ];
 
         $this->session->set('isLoggedIn', true);
