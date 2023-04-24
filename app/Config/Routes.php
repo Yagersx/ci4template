@@ -37,7 +37,8 @@ $routes->get('dashboard', 'Dashboard::index');
 
 $routes->get('employees', 'Employee::index');
 $routes->match(['get', 'post'], '/employees/create', 'Employee::create');
-$routes->match(['get', 'post'], '/employees/edit/(:num)', 'Employee::edit/$1');
+$routes->get('/employees/edit/(:num)', 'Employee::edit/$1');
+$routes->post('/employees/edit/', 'Employee::edit');
 $routes->get('/employees/delete/(:num)', 'Employee::delete/$1');
 
 $routes->get('positions', 'Position::index');

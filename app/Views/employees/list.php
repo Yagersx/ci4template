@@ -47,6 +47,7 @@
                                     <th>Apellido</th>
                                     <th>Email</th>
                                     <th>Teléfono</th>
+                                    <th>Posicion</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -64,6 +65,17 @@
                                         </td>
                                         <td>
                                             <?= $employee->phone; ?>
+                                        </td>
+                                        <td>
+                                            <?php if ($employee->position == 1) { ?>
+                                                <span class="badge badge-success">Administrador</span>
+                                            <?php } ?>
+                                            <?php if ($employee->position == 2) { ?>
+                                                <span class="badge badge-primary">Vendedor</span>
+                                            <?php } ?>
+                                            <?php if ($employee->position == 3) { ?>
+                                                <span class="badge badge-default">Transportista</span>
+                                            <?php } ?>
                                         </td>
                                         <td>
                                             <?php if ($employee->position == 1) { ?>

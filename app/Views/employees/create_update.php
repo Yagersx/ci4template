@@ -32,66 +32,70 @@
                             <?= $subtitle ?>
                         </h3>
 
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
                     </div>
-                    <form method="post" action="<?php echo base_url('employees/create'); ?>">
+                    <form method="post" action="<?php echo base_url('employees/' . $action); ?>">
                         <div class="card-body">
+                            <div style="color:red;">
+                                <?= validation_list_errors() ?>
+                            </div>
+                            <div class="row">
+                                <input type="hidden" name="id" value="<?= old('id', $id ?? ''); ?>">
 
-                            <div class="form-group">
-                                <label for="name">Nombre:</label>
-                                <input type="text" class="form-control" id="name" name="name" required
-                                    value="<?= $employee->name; ?> ">
+                                <div class="form-group col-4">
+                                    <label for="name">Nombre:</label>
+                                    <input type="text" class="form-control" id="name" name="name" required
+                                        value="<?= old('name', $employee->name ?? ''); ?>">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="last_name">Apellido:</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" required
+                                        value="<?= old('last_name', $employee->last_name ?? ''); ?>">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="email">Email:</label>
+                                    <input type="email" class="form-control" id="email" name="email" required
+                                        value="<?= old('email', $employee->email ?? ''); ?>">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="phone">Teléfono:</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" required
+                                        minlength="10" maxlength="10"
+                                        value="<?= old('phone', $employee->phone ?? ''); ?>">
+                                </div>
+                                <div class="form-group col-8">
+                                    <label for="address">Dirección:</label>
+                                    <input type="text" class="form-control" id="address" name="address" required
+                                        value="<?= old('address', $employee->address ?? ''); ?>">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="position">Posicion:</label>
+                                    <select class="form-control" id="position" name="position" required>
+                                        <option value=""></option>
+                                        <?php foreach ($positions as $position) { ?>
+                                            <option value="<?= $position->position_id; ?>" <?= old('position', $employee->position ?? '') == $position->position_id ? 'selected' : '' ?>><?= $position->description; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="password">Contraseña:</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        minlength="8" <?= !isset($employee) ? 'required' : '' ?>>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="password_confirm">Confirmar Contraseña:</label>
+                                    <input type="password" class="form-control" id="password_confirm"
+                                        name="password_confirm" minlength="8" <?= !isset($employee) ? 'required' : '' ?>>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="last_name">Apellido:</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name" required
-                                    value="<?= $employee->last_name ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" required
-                                    value="<?= $employee->email ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Teléfono:</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" required minlength="10"
-                                    maxlength="10" value="<?= $employee->phone ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Dirección:</label>
-                                <input type="text" class="form-control" id="address" name="address" required
-                                    value="<?= $employee->address ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="position">Posicion:</label>
-                                <select class="form-control" id="position" name="position" required>
-                                    <option value="1">Administrador</option>
-                                    <option value="2">Empleado</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Contraseña:</label>
-                                <input type="password" class="form-control" id="password" name="password" minlength="8"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password_confirm">Confirmar Contraseña:</label>
-                                <input type="password" class="form-control" id="password_confirm"
-                                    name="password_confirm" minlength="8" required>
-                            </div>
-
-
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <div class="float-sm-right">
+                                <a type="button" class="btn btn-danger "
+                                    href="<?= base_url('/employees') ?>">Cancelar</a>
+                                <button type="submit" class="btn btn-primary  ">Guardar</button>
+                            </div>
                         </div>
                     </form>
                     <!-- /.card-footer-->

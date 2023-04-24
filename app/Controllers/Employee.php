@@ -28,24 +28,54 @@ class Employee extends BaseController
 
     public function create()
     {
-        if ($this->request->is('get')) {
-            $data = [
-                'title' => 'Empleados',
-                'subtitle' => 'Crear Empleado'
-            ];
+        $data = [
+            'title' => 'Empleados',
+            'subtitle' => 'Crear Empleado',
+            'action' => 'create',
+            'positions' => model('App\Models\Positions')->findAll()
+        ];
 
+        if ($this->request->is('get')) {
             return view('employees/create_update', $data);
         }
 
         $rules = [
-            'name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|valid_email',
-            'phone' => 'required|numeric',
-            'address' => 'string',
-            'position' => 'numeric',
-            'password' => 'required|min_length[8]',
-            'password_confirm' => 'required|matches[password]'
+            'name' => [
+                'label' => 'Nombre',
+                'rules' => 'required|alpha_numeric_space',
+            ],
+            'last_name' => [
+                'label' => 'Apellido',
+                'rules' => 'required|alpha_numeric_space',
+            ],
+            'email' => [
+                'label' => 'Email',
+                'rules' => 'required|valid_email',
+            ],
+            'phone' => [
+                'label' => 'Teléfono',
+                'rules' => 'required|numeric',
+            ],
+            'address' => [
+                'label' => 'Dirección',
+                'rules' => 'alpha_numeric_punct',
+            ],
+            'position' => [
+                'label' => 'Posición',
+                'rules' => 'numeric',
+            ],
+            'password' => [
+                'label' => 'Contraseña',
+                'rules' => 'required|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/]',
+                'errors' => [
+                    'required' => 'El campo Contraseña es requerido.',
+                    'regex_match' => 'El campo Contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo.'
+                ]
+            ],
+            'password_confirm' => [
+                'label' => 'Confirmar Contraseña',
+                'rules' => 'required|matches[password]',
+            ],
         ];
 
         if (!$this->validate($rules)) {
@@ -69,20 +99,28 @@ class Employee extends BaseController
         $this->session->setFlashdata('msg', ['type' => 'success', 'body' => 'El empleado se ha creado correctamente.']);
 
         return redirect()->to('/employees');
-
     }
 
-    public function edit($id)
+    public function edit($id = null)
     {
 
-        if ($this->request->is('get')) {
-            $data = [
-                'title' => 'Empleados',
-                'subtitle' => 'Editar Empleado',
-                'id' => $id
-            ];
+        $id = $id ?? $this->request->getPost('id') ?? null;
 
-            $employee = model('App\Models\Employees')->find($id);
+        if (!isset($id) && !is_numeric($id)) {
+            $this->session->setFlashdata('msg', ['type' => 'error', 'body' => 'El id del empleado es requerido.']);
+            return redirect()->to('/employees');
+        }
+
+        $data = [
+            'title' => 'Empleados',
+            'subtitle' => 'Editar Empleado',
+            'action' => 'edit',
+            'id' => $id,
+            'positions' => model('App\Models\Positions')->findAll()
+        ];
+
+        if ($this->request->is('get')) {
+            $employee = $this->employeesModel->find($id);
 
             if (!$employee) {
                 $this->session->setFlashdata('msg', ['type' => 'error', 'body' => 'El empleado no existe.']);
@@ -90,21 +128,88 @@ class Employee extends BaseController
             }
 
             $data['employee'] = $employee;
-
             return view('employees/create_update', $data);
         }
+
+        $rules = [
+            'name' => [
+                'label' => 'Nombre',
+                'rules' => 'required|alpha_numeric_space',
+            ],
+            'last_name' => [
+                'label' => 'Apellido',
+                'rules' => 'required|alpha_numeric_space',
+            ],
+            'email' => [
+                'label' => 'Email',
+                'rules' => 'required|valid_email',
+            ],
+            'phone' => [
+                'label' => 'Teléfono',
+                'rules' => 'required|numeric',
+            ],
+            'address' => [
+                'label' => 'Dirección',
+                'rules' => 'alpha_numeric_punct',
+            ],
+            'position' => [
+                'label' => 'Posición',
+                'rules' => 'numeric',
+            ]
+        ];
+
+        // If password is not empty, add password rules
+        // If password is empty, it means that the user doesn't want to change the password
+        if (!empty($this->request->getPost('password'))) {
+            $rules['password'] = [
+                'label' => 'Contraseña',
+                'rules' => 'required|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/]',
+                'errors' => [
+                    'required' => 'El campo Contraseña es requerido.',
+                    'regex_match' => 'El campo Contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo.'
+                ]
+            ];
+
+            $rules['password_confirm'] = [
+                'label' => 'Confirmar Contraseña',
+                'rules' => 'required|matches[password]',
+            ];
+        }
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $updatedEmployee = [
+            'name' => $this->request->getPost('name'),
+            'last_name' => $this->request->getPost('last_name'),
+            'email' => $this->request->getPost('email'),
+            'phone' => $this->request->getPost('phone'),
+            'address' => $this->request->getPost('address'),
+            'position' => $this->request->getPost('position')
+        ];
+
+        if (!empty($this->request->getPost('password'))) {
+            $updatedEmployee['password'] = Password::generatePassword($this->request->getPost('password'));
+        }
+
+        $this->employeesModel->update($id, $updatedEmployee);
+
+        $this->session->setFlashdata('msg', ['type' => 'success', 'body' => 'El empleado se ha actualizado correctamente.']);
+
+        return redirect()->to('/employees');
     }
 
     public function delete($id)
     {
-        $employee = model('App\Models\Employees')->find($id);
+        $employee = $this->employeesModel->find($id);
 
         if (!$employee) {
             $this->session->setFlashdata('msg', ['type' => 'error', 'body' => 'El empleado no existe.']);
             return redirect()->to('/employees');
         }
 
-        model('App\Models\Employees')->delete($id);
+        $this->employeesModel->delete($id);
 
         $this->session->setFlashdata('msg', ['type' => 'success', 'body' => 'El empleado se ha eliminado correctamente.']);
 

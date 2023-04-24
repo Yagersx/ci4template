@@ -17,7 +17,7 @@ class Employees extends Model
     protected $allowedFields = [];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat = 'datetime';
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
@@ -31,12 +31,31 @@ class Employees extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert = [];
+    protected $beforeInsert = ['insertedBy'];
     protected $afterInsert = [];
-    protected $beforeUpdate = [];
+    protected $beforeUpdate = ['updatedBy'];
     protected $afterUpdate = [];
     protected $beforeFind = [];
     protected $afterFind = [];
-    protected $beforeDelete = [];
+    protected $beforeDelete = ['deletedBy'];
     protected $afterDelete = [];
+
+
+    protected function insertedBy(array $data)
+    {
+        $data['data']['created_by'] = session()->get('employee')['employee_id'];
+        return $data;
+    }
+
+    protected function updatedBy(array $data)
+    {
+        $data['data']['updated_by'] = session()->get('employee')['employee_id'];
+        return $data;
+    }
+
+    protected function deletedBy(array $data)
+    {
+        $data['data']['deleted_by'] = session()->get('employee')['employee_id'];
+        return $data;
+    }
 }

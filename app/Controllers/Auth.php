@@ -39,7 +39,7 @@ class Auth extends BaseController
         }
 
         $employeeSession = [
-            'id' => $employee->employee_id,
+            'employee_id' => $employee->employee_id,
             'name' => $employee->name,
             'last_name' => $employee->last_name,
             'email' => $employee->email,
