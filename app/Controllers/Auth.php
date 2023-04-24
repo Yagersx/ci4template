@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Helpers\Password;
 
 class Auth extends BaseController
 {
@@ -33,7 +34,7 @@ class Auth extends BaseController
             return redirect()->back()->withInput()->with('errors', ['email' => 'El usuario o contraseña son invalidos. Intentelo de nuevo.']);
         }
 
-        if (!password_verify($password, $employee->password)) {
+        if (!Password::verifyPassword($password, $employee->password)) {
             return redirect()->back()->withInput()->with('errors', ['password' => 'El usuario o contraseña son invalidos. Intentelo de nuevo.']);
         }
 

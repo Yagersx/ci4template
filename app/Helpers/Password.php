@@ -1,14 +1,31 @@
 <?php
 
+namespace App\Helpers;
+
 class Password
 {
-    public static function generateSalt($bytes = 16)
-    {
-        return bin2hex(random_bytes($bytes));
-    }
+
+    /**
+     * Genera un hash a partir de un password
+     * @param string $password
+     * @return string
+     */
     public static function generatePassword($password)
     {
-        $salt = self::generateSalt(); // Se genera una sal aleatoria
-        return password_hash($password, PASSWORD_DEFAULT, ['salt' => $salt]); // Se crea el hash utilizando la función password_hash y la sal
+        $pepperedPassword = $password . $_ENV['SECRET_PEPPER']; // Se concatena la pimienta al password
+        return password_hash($pepperedPassword, PASSWORD_DEFAULT, ['cost' => 12]); // Se crea el hash utilizando la función password_hash, la salt se omite ya que a partir de php 7, esta se autogenera
+    }
+
+    /**
+     * Verifica que el password coincida con el hash
+     * @param string $password
+     * @param string $hash
+     * @return bool
+     */
+    public static function verifyPassword($password, $hash)
+    {
+        $pepperedPassword = $password . $_ENV['SECRET_PEPPER'];
+
+        return password_verify($pepperedPassword, $hash);
     }
 }

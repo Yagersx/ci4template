@@ -3,9 +3,17 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Helpers\Password;
+use App\Models\Employees;
 
 class Employee extends BaseController
 {
+
+    private $employeesModel;
+    public function __construct()
+    {
+        $this->employeesModel = new Employees();
+    }
     public function index()
     {
         $data = [
@@ -13,14 +21,13 @@ class Employee extends BaseController
             'subtitle' => 'Lista de Empleados'
         ];
 
-        $data['employees'] = model('App\Models\Employees')->findAll();
+        $data['employees'] = $this->employeesModel->findAll();
 
         return view('employees/list', $data);
     }
 
     public function create()
     {
-
         if ($this->request->is('get')) {
             $data = [
                 'title' => 'Empleados',
@@ -43,17 +50,17 @@ class Employee extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $employeesModel = model('App\Models\Employees');
+        $hashedPassword = Password::generatePassword($this->request->getPost('password'));
 
         $employee = [
             'name' => $this->request->getPost('name'),
             'last_name' => $this->request->getPost('last_name'),
             'email' => $this->request->getPost('email'),
             'phone' => $this->request->getPost('phone'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT)
+            'password' => $hashedPassword
         ];
 
-        $employeesModel->save($employee);
+        $this->employeesModel->insert($employee);
 
         $this->session->setFlashdata('msg', ['type' => 'success', 'body' => 'El empleado se ha creado correctamente.']);
 
