@@ -14,11 +14,11 @@ class Employee extends BaseController
     {
         $this->employeesModel = new Employees();
     }
+
     public function index()
     {
         $data = [
-            'title' => 'Empleados',
-            'subtitle' => 'Lista de Empleados'
+            'title' => 'Lista de Empleados'
         ];
 
         $data['employees'] = $this->employeesModel->findAll();
@@ -29,8 +29,7 @@ class Employee extends BaseController
     public function create()
     {
         $data = [
-            'title' => 'Empleados',
-            'subtitle' => 'Crear Empleado',
+            'title' => 'Crear Empleado',
             'action' => 'create',
             'positions' => model('App\Models\Positions')->findAll()
         ];
@@ -112,8 +111,7 @@ class Employee extends BaseController
         }
 
         $data = [
-            'title' => 'Empleados',
-            'subtitle' => 'Editar Empleado',
+            'title' => 'Editar Empleado',
             'action' => 'edit',
             'id' => $id,
             'positions' => model('App\Models\Positions')->findAll()

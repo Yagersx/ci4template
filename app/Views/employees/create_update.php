@@ -7,7 +7,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1>
-                    <?= $title ?>
+                    Empleados
                 </h1>
             </div>
             <div class="col-sm-6">
@@ -29,9 +29,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <?= $subtitle ?>
+                            <?= $title ?>
                         </h3>
-
                     </div>
                     <form method="post" action="<?php echo base_url('employees/' . $action); ?>">
                         <div class="card-body">
