@@ -1,6 +1,14 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 
+<?php
+$positionColors = array(
+    1 => 'badge-success',
+    2 => 'badge-primary',
+    3 => 'badge-info',
+    4 => 'badge-secondary'
+); ?>
+
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -67,8 +75,8 @@
                                             <?= $employee->phone; ?>
                                         </td>
                                         <td class="text-center">
-                                            <span class="badge badge-primary">
-                                                <?= $employee->position_description; ?>
+                                            <span class="badge <?= $positionColors[$employee->position_id]; ?>">
+                                                <?= $employee->description; ?>
                                             </span>
                                         </td>
                                         <td class="text-center">

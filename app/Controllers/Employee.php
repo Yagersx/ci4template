@@ -25,7 +25,7 @@ class Employee extends BaseController
         ];
 
         $data['employees'] = $this->employeesModel
-            ->select('employees.*, positions.description as position_description')
+            ->select('employees.*, positions.*')
             ->join('positions', 'positions.position_id = employees.position_id')
             ->findAll();
 
