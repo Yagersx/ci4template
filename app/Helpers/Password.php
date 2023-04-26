@@ -10,7 +10,7 @@ class Password
      * @param string $password
      * @return string
      */
-    public static function generatePassword($password)
+    public static function generateHashedPassword($password)
     {
         $pepperedPassword = $password . $_ENV['SECRET_PEPPER']; // Se concatena la pimienta al password
         return password_hash($pepperedPassword, PASSWORD_DEFAULT, ['cost' => 12]); // Se crea el hash utilizando la función password_hash, la salt se omite ya que a partir de php 7, esta se autogenera
@@ -27,5 +27,10 @@ class Password
         $pepperedPassword = $password . $_ENV['SECRET_PEPPER'];
 
         return password_verify($pepperedPassword, $hash);
+    }
+
+    public static function generateToken($length = 32)
+    {
+        return bin2hex(random_bytes($length));
     }
 }

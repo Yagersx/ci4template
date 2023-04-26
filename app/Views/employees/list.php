@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <?= $subtitle ?>
+                            <?= $title ?>
                         </h3>
 
                         <div class="card-tools">
@@ -40,15 +40,15 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table class="table table-striped ">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Email</th>
                                     <th>Teléfono</th>
-                                    <th>Posicion</th>
-                                    <th>Acciones</th>
+                                    <th class="text-center">Posicion</th>
+                                    <th class="text-center">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,26 +66,23 @@
                                         <td>
                                             <?= $employee->phone; ?>
                                         </td>
-                                        <td>
-                                            <?php if ($employee->position == 1) { ?>
-                                                <span class="badge badge-success">Administrador</span>
-                                            <?php } ?>
-                                            <?php if ($employee->position == 2) { ?>
-                                                <span class="badge badge-primary">Vendedor</span>
-                                            <?php } ?>
-                                            <?php if ($employee->position == 3) { ?>
-                                                <span class="badge badge-default">Transportista</span>
-                                            <?php } ?>
+                                        <td class="text-center">
+                                            <span class="badge badge-primary">
+                                                <?= $employee->position_description; ?>
+                                            </span>
                                         </td>
-                                        <td>
-                                            <?php if ($employee->position == 1) { ?>
+                                        <td class="text-center">
+                                            <?php if (session()->get('employee')['position_id'] == 1) { ?>
                                                 <a href="<?php echo base_url('employees/edit/' . $employee->employee_id); ?>"
                                                     class="btn btn-primary">Editar</a>
-                                            <?php } ?>
-                                            <?php if ($employee->position != 1) { ?>
-                                                <a href="<?php echo base_url('employees/delete/' . $employee->employee_id); ?>"
-                                                    class="btn btn-danger">Eliminar</a>
-                                            <?php } ?>
+                                                <?php if ($employee->position_id != 1) { ?>
+                                                    <a href="<?php echo base_url('employees/delete/' . $employee->employee_id); ?>"
+                                                        class="btn btn-danger">Eliminar</a>
+                                                <?php } ?>
+                                            <?php } else {
+                                                echo "No tienes permisos para editar o eliminar empleados";
+                                            } ?>
+
                                         </td>
                                     </tr>
                                 <?php } ?>

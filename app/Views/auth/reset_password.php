@@ -23,27 +23,13 @@
                 <a href="#" class="h1"><b>Gruas</b></a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Ingresa tus credenciales para iniciar sesion</p>
+                <p class="login-box-msg">Reestablecer Contraseña</p>
                 <div style="color:red;">
                     <?= validation_list_errors() ?>
-                    <?php
-                    if (session()->has('msg')) { ?>
-                        <div class="alert alert-<?= session('msg')['type']; ?> text-center">
-                            <p>
-                                <?= session('msg')['body']; ?>
-                            </p>
-                        </div>
-                    <?php } ?>
                 </div>
-                <?= form_open('auth/login') ?>
-                <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Correo electrónico" name="email">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                        </div>
-                    </div>
-                </div>
+                <?= form_open("/auth/reset-password") ?>
+
+                <input type="hidden" name="token" value="<?= $token ?>">
                 <div class="input-group mb-3">
                     <input type="password" class="form-control" placeholder="Contraseña" name="password">
                     <div class="input-group-append">
@@ -52,29 +38,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">
-                                Recuerdame
-                            </label>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Confirmar Contraseña"
+                        name="confirm_password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
                         </div>
                     </div>
-
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Iniciar Sesion</button>
-                    </div>
-
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
                 </div>
                 <?= form_close() ?>
-                <p class="mb-1">
-                    <a href="forgot-password.html">Olvide mi contraseña</a>
-                </p>
             </div>
-
         </div>
-
     </div>
     <?= script_tag("plugins/bootstrap/js/bootstrap.bundle.min.js") ?>
 </body>

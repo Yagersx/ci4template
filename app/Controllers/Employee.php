@@ -5,23 +5,29 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Helpers\Password;
 use App\Models\Employees;
+use App\Libraries\CustomEmail;
 
 class Employee extends BaseController
 {
 
     private $employeesModel;
+    private $email;
     public function __construct()
     {
         $this->employeesModel = new Employees();
+        $this->email = new CustomEmail();
     }
 
     public function index()
     {
         $data = [
-            'title' => 'Lista de Empleados'
+            'title' => 'Lista de Empleados',
         ];
 
-        $data['employees'] = $this->employeesModel->findAll();
+        $data['employees'] = $this->employeesModel
+            ->select('employees.*, positions.description as position_description')
+            ->join('positions', 'positions.position_id = employees.position_id')
+            ->findAll();
 
         return view('employees/list', $data);
     }
@@ -63,25 +69,12 @@ class Employee extends BaseController
                 'label' => 'Posición',
                 'rules' => 'numeric',
             ],
-            'password' => [
-                'label' => 'Contraseña',
-                'rules' => 'required|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/]',
-                'errors' => [
-                    'required' => 'El campo Contraseña es requerido.',
-                    'regex_match' => 'El campo Contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo.'
-                ]
-            ],
-            'password_confirm' => [
-                'label' => 'Confirmar Contraseña',
-                'rules' => 'required|matches[password]',
-            ],
+
         ];
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-
-        $hashedPassword = Password::generatePassword($this->request->getPost('password'));
 
         $employee = [
             'name' => $this->request->getPost('name'),
@@ -89,13 +82,28 @@ class Employee extends BaseController
             'email' => $this->request->getPost('email'),
             'phone' => $this->request->getPost('phone'),
             'address' => $this->request->getPost('address'),
-            'position' => $this->request->getPost('position'),
-            'password' => $hashedPassword
+            'position_id' => $this->request->getPost('position'),
+            'token' => Password::generateToken(),
+            'confirmed' => 0,
         ];
 
-        $this->employeesModel->insert($employee);
+        $insertedEmployeeId = $this->employeesModel->insert($employee);
 
-        $this->session->setFlashdata('msg', ['type' => 'success', 'body' => 'El empleado se ha creado correctamente.']);
+        if (!$insertedEmployeeId) {
+            $this->session->setFlashdata('msg', ['type' => 'error', 'body' => 'Ha ocurrido un error al crear el empleado.']);
+            log_message('error', 'Error al crear el empleado: ' . $this->employeesModel->errors());
+            return redirect()->back()->withInput();
+        }
+
+        $emailSent = $this->email->sendConfirmationEmail($employee['email'], $employee['token']);
+
+        if (!$emailSent) {
+            $this->session->setFlashdata('msg', ['type' => 'warning', 'body' => 'Se ha creado al empleado pero ha ocurrido un error al enviar el correo de confirmación. Compruebe que la direccion de email es valida e intente reestablecer su contraseña mediante el enlace de "Olvidé mi contraseña" en la página de inicio de sesión.']);
+            log_message('error', 'Error al enviar el correo de confirmación');
+        } else {
+            $this->session->setFlashdata('msg', ['type' => 'success', 'body' => 'El empleado se ha creado correctamente.']);
+        }
+
 
         return redirect()->to('/employees');
     }
@@ -103,6 +111,7 @@ class Employee extends BaseController
     public function edit($id = null)
     {
 
+        //If no parameter is passed, try to get it from the post request
         $id = $id ?? $this->request->getPost('id') ?? null;
 
         if (!isset($id) && !is_numeric($id)) {
@@ -117,6 +126,7 @@ class Employee extends BaseController
             'positions' => model('App\Models\Positions')->findAll()
         ];
 
+        //If the request is a get request, show the edit form
         if ($this->request->is('get')) {
             $employee = $this->employeesModel->find($id);
 
@@ -156,24 +166,6 @@ class Employee extends BaseController
             ]
         ];
 
-        // If password is not empty, add password rules
-        // If password is empty, it means that the user doesn't want to change the password
-        if (!empty($this->request->getPost('password'))) {
-            $rules['password'] = [
-                'label' => 'Contraseña',
-                'rules' => 'required|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/]',
-                'errors' => [
-                    'required' => 'El campo Contraseña es requerido.',
-                    'regex_match' => 'El campo Contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo.'
-                ]
-            ];
-
-            $rules['password_confirm'] = [
-                'label' => 'Confirmar Contraseña',
-                'rules' => 'required|matches[password]',
-            ];
-        }
-
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -184,14 +176,16 @@ class Employee extends BaseController
             'email' => $this->request->getPost('email'),
             'phone' => $this->request->getPost('phone'),
             'address' => $this->request->getPost('address'),
-            'position' => $this->request->getPost('position')
+            'position_id' => $this->request->getPost('position')
         ];
 
-        if (!empty($this->request->getPost('password'))) {
-            $updatedEmployee['password'] = Password::generatePassword($this->request->getPost('password'));
-        }
+        $updatedEmployee = $this->employeesModel->update($id, $updatedEmployee);
 
-        $this->employeesModel->update($id, $updatedEmployee);
+        if (!$updatedEmployee) {
+            $this->session->setFlashdata('msg', ['type' => 'error', 'body' => 'Ha ocurrido un error al actualizar el empleado.']);
+            log_message('error', 'Error al actualizar el empleado: ' . $this->employeesModel->errors());
+            return redirect()->back()->withInput();
+        }
 
         $this->session->setFlashdata('msg', ['type' => 'success', 'body' => 'El empleado se ha actualizado correctamente.']);
 

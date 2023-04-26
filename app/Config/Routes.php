@@ -33,6 +33,7 @@ $routes->get('/', 'Auth::index');
 $routes->get('auth', 'Auth::index');
 $routes->post('auth/login', 'Auth::login');
 $routes->get('auth/logout', 'Auth::logout');
+$routes->match(['get', 'post'], 'auth/reset-password', 'Auth::resetPassword');
 $routes->get('dashboard', 'Dashboard::index');
 
 $routes->get('employees', 'Employee::index');
