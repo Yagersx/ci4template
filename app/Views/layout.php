@@ -39,7 +39,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
                         <span class="badge badge-warning navbar-badge">15</span>
@@ -64,8 +64,7 @@
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
-                </li>
-
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('/auth/logout') ?>" role="button">
                         Cerrar Sesión
@@ -90,7 +89,9 @@
                         <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">User</a>
+                        <a href="#" class="d-block">
+                            <?= session()->get('employee')['name']; ?>
+                        </a>
                     </div>
                 </div>
                 <!-- Sidebar Menu -->
@@ -150,7 +151,9 @@
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.2.0
             </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            <strong>Copyright &copy; 2023 <a href="https://www.linkedin.com/in/iml-it/" target="_blank">Irving
+                    Martinez</a>.</strong>
+            All rights
             reserved.
         </footer>
         <!-- Control Sidebar -->
