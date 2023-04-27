@@ -11,9 +11,10 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <?= link_tag("plugins/fontawesome-free/css/all.min.css") ?>
-    <!-- overlayScrollbars -->
+    <!-- Plugins -->
     <?= link_tag("plugins/overlayScrollbars/css/OverlayScrollbars.min.css") ?>
     <?= link_tag("plugins/overlayScrollbars/css/OverlayScrollbars.min.css") ?>
+    <?= link_tag("plugins/datatables/datatables.min.css") ?>
     <!-- Theme style -->
     <?= link_tag("dist/css/adminlte.min.css") ?>
 </head>
@@ -35,11 +36,8 @@
                     <a href="#" class="nav-link">Contacto</a>
                 </li>
             </ul>
-
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-
-
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -76,7 +74,6 @@
             </ul>
         </nav>
         <!-- /.navbar -->
-
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -85,7 +82,6 @@
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Gruas App</span>
             </a>
-
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
@@ -97,7 +93,6 @@
                         <a href="#" class="d-block">User</a>
                     </div>
                 </div>
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -133,7 +128,6 @@
                                 </li>
                             </ul>
                         </li>
-
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -142,7 +136,6 @@
         </aside>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-
             <?php
             if (session()->has('msg')) { ?>
                 <div class="alert alert-<?= session('msg')['type']; ?>">
@@ -160,7 +153,6 @@
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
             reserved.
         </footer>
-
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
@@ -168,15 +160,15 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-    <!-- jQuery -->
+
     <?= script_tag('plugins/jquery/jquery.min.js') ?>
-    <!-- Bootstrap 4 -->
     <?= script_tag('plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
-    <!-- overlayScrollbars -->
     <?= script_tag('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') ?>
     <!-- AdminLTE App -->
     <?= script_tag('dist/js/adminlte.min.js') ?>
     <?= script_tag('plugins/chart.js/chart.min.js') ?>
+    <?= script_tag('plugins/sweetalert2/sweetalert2.all.min.js') ?>
+    <?= script_tag('plugins/datatables/datatables.min.js') ?>
 
     <?php if (isset($scripts)) {
         foreach ($scripts as $script) { ?>
