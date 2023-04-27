@@ -58,7 +58,7 @@ class Auth extends BaseController
         ];
 
         $this->session->set('isLoggedIn', true);
-        $this->session->set('isAdmin', $employee->position_id == 1 ? true : false);
+        $this->session->set('isAdmin', $employee->is_admin == 1 ? true : false);
         $this->session->set('employee', $employeeSession);
 
         return redirect()->to('/dashboard');
