@@ -22,33 +22,24 @@
             <div class="card-header text-center">
                 <a href="#" class="h1"><b>Gruas</b></a>
             </div>
-            <div class="card-body">
-                <p class="login-box-msg">Genera una nueva contraseña.</p>
+            <div class="card-body text-center">
+                <p class="login-box-msg">¿Olvidaste tu Contraseña?</p>
+                <p>Ingresa un correo electrónico válido y enviaremos un enlace para restablecer tu contraseña.</p>
                 <div style="color:red;">
                     <?= validation_list_errors() ?>
                 </div>
-                <?= form_open("/auth/reset-password") ?>
+                <?= form_open("/auth/forgot-password") ?>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Correo" name="email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
 
-                <input type="hidden" name="token" value="<?= $token ?>">
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Contraseña" name="password">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Confirmar Contraseña"
-                        name="confirm_password">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-4">
-                    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    <button type="submit" class="btn btn-primary btn-block ">Enviar</button>
                 </div>
                 <?= form_close() ?>
             </div>

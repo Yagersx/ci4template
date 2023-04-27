@@ -49,7 +49,7 @@ class Employees extends Model
 
     protected function updatedBy(array $data)
     {
-        $data['data']['updated_by'] = session()->get('employee')['employee_id'];
+        $data['data']['updated_by'] = session()->get('employee')['employee_id'] ?? 0;
         return $data;
     }
 

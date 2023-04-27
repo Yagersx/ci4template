@@ -53,12 +53,18 @@
 
 <body>
 	<div class="container">
-		<h1>Confirmación de cuenta</h1>
-		<p>Se ha creado una cuenta ligada a este correo. Haga clic en el siguiente botón para establecer su
-			nueva contraseña.</p>
-		<small>No olvides que para inicar sesion es necesario colocar tu correo electrónico y la contraseña que generes
-			en el siguiente link.</small>
-		<a href="<?= site_url('auth/reset-password?token=' . $token) ?>">Click aqui para establecer una contraseña</a>
+		<h1>
+			<?= $subject ?? 'Reestablecimiento de Contraseña' ?>
+		</h1>
+		<p>
+			Se ha solicitado un reestablecimiento de contraseña para esta cuenta. Si no has sido tú, ignora este
+			mensaje.
+		</p>
+		<p>
+			De lo contrario, haz clic en el siguiente botón para reestablecer tu contraseña.
+		</p>
+		<br>
+		<a href="<?= site_url('auth/reset-password?token=' . $token) ?>">Click aqui para reestablecer tu contraseña.</a>
 	</div>
 </body>
 

@@ -4,15 +4,18 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Helpers\Password;
+use App\Libraries\CustomEmail;
 use App\Models\Employees;
 
 class Auth extends BaseController
 {
 
     private $employeesModel;
+    private $email;
     public function __construct()
     {
         $this->employeesModel = new Employees();
+        $this->email = new CustomEmail();
     }
 
     public function index()
@@ -129,5 +132,45 @@ class Auth extends BaseController
         ]);
 
         return redirect()->to('/')->with('msg', ['type' => 'success', 'body' => 'La contraseña se ha reestablecido correctamente.']);
+    }
+
+    public function forgotPassword()
+    {
+        $data = [
+            'title' => 'Recuperar Contraseña'
+        ];
+
+        if ($this->request->is('get')) {
+            return view('auth/forgot_password', $data);
+        }
+
+        $rules = [
+            'email' => [
+                'label' => 'Correo Electrónico',
+                'rules' => 'required|valid_email',
+            ]
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $email = $this->request->getPost('email');
+
+        $employee = $this->employeesModel->where('email', $email)->first();
+
+        if ($employee) {
+            $token = Password::generateToken();
+
+            $this->employeesModel->update($employee->employee_id, [
+                'token' => $token
+            ]);
+
+            //No se retorna mensaje de error si el correo no se envia correctamente para evitar que se sepa si el correo existe o no.
+            $this->email->sendResetPasswordEmail($employee->email, $token);
+        }
+
+        //Tampoco se retorna mensaje de exito para evitar que se sepa si el correo/usuario existe o no.
+        return redirect()->to('/')->with('msg', ['type' => 'success', 'body' => 'Si hay una cuenta asociada al correo proporcionado, se enviara un enlace para reestablecer la contraseña.']);
     }
 }

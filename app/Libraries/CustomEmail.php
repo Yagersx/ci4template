@@ -72,7 +72,14 @@ class CustomEmail
     public function sendConfirmationEmail($to, $token)
     {
         $subject = 'Confirmación de cuenta';
-        $message = view('emails/confirmation', ['token' => $token]);
+        $message = view('emails/confirmation', ['token' => $token, 'subject' => $subject]);
+        return $this->sendEmail($to, $subject, $message);
+    }
+
+    public function sendResetPasswordEmail($to, $token)
+    {
+        $subject = 'Reestablecimiento de contraseña';
+        $message = view('emails/reset_password', ['token' => $token, 'subject' => $subject]);
         return $this->sendEmail($to, $subject, $message);
     }
 

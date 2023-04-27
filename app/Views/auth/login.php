@@ -69,7 +69,7 @@
                 </div>
                 <?= form_close() ?>
                 <p class="mb-1">
-                    <a href="forgot-password.html">Olvide mi contraseña</a>
+                    <a href="<?= site_url('auth/forgot-password'); ?>">Olvide mi contraseña</a>
                 </p>
             </div>
 
