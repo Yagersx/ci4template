@@ -67,8 +67,8 @@ class Employees extends Model
     public function getEmployeesForDatatable(array $options)
     {
         $builder = $this->db->table('employees');
-        $builder->select('employees.*, positions.description');
-        $builder->join('positions', 'positions.position_id = employees.position_id');
+        $builder->select('employees.*, roles.description');
+        $builder->join('roles', 'roles.role_id = employees.role_id');
         $builder->where('employees.deleted_at', null);
         $builder->limit($options['length'], $options['start']);
 

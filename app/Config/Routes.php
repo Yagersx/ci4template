@@ -44,7 +44,7 @@ $routes->get('/employees/edit/(:num)', 'Employee::edit/$1');
 $routes->post('/employees/edit/', 'Employee::edit');
 $routes->get('/employees/delete/(:num)', 'Employee::delete/$1');
 
-$routes->get('positions', 'Position::index');
+$routes->get('roles', 'Role::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

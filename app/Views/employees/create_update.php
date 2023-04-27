@@ -66,11 +66,11 @@
                                     value="<?= old('address', $employee->address ?? ''); ?>">
                             </div>
                             <div class="form-group col-4">
-                                <label for="position">Posicion:</label>
-                                <select class="form-control" id="position" name="position" required>
+                                <label for="role">Posicion:</label>
+                                <select class="form-control" id="role" name="role" required>
                                     <option value=""></option>
-                                    <?php foreach ($positions as $position) { ?>
-                                        <option value="<?= $position->position_id; ?>" <?= old('position', $employee->position_id ?? '') == $position->position_id ? 'selected' : '' ?>><?= $position->description; ?>
+                                    <?php foreach ($roles as $role) { ?>
+                                        <option value="<?= $role->role_id; ?>" <?= old('role', $employee->role_id ?? '') == $role->role_id ? 'selected' : '' ?>><?= $role->description; ?>
                                         </option>
                                     <?php } ?>
                                 </select>

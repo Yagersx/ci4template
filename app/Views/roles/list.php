@@ -40,10 +40,10 @@
                                     <th>Descripcion</th>
                             </thead>
                             <tbody>
-                                <?php foreach ($positions as $position) { ?>
+                                <?php foreach ($roles as $role) { ?>
                                     <tr>
                                         <td>
-                                            <?= $position->description; ?>
+                                            <?= $role->description; ?>
                                         </td>
 
                                     </tr>

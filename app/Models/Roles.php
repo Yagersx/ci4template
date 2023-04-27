@@ -4,11 +4,11 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Positions extends Model
+class Roles extends Model
 {
     protected $DBGroup = 'default';
-    protected $table = 'positions';
-    protected $primaryKey = 'position_id';
+    protected $table = 'roles';
+    protected $primaryKey = 'role_id';
     protected $useAutoIncrement = true;
     protected $insertID = 0;
     protected $returnType = 'object';

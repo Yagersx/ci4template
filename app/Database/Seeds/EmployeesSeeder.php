@@ -19,7 +19,7 @@ class EmployeesSeeder extends Seeder
                 'phone' => $faker->phoneNumber,
                 'address' => $faker->address,
                 'salary' => $faker->numberBetween(10000, 50000),
-                'position_id' => $faker->numberBetween(1, 3),
+                'role_id' => $faker->numberBetween(1, 3),
                 'password' => password_hash('password', PASSWORD_DEFAULT),
                 'token' => bin2hex(random_bytes(16)),
                 'confirmed' => $faker->boolean,

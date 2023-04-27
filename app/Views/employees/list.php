@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 
 <?php
-$positionColors = array(
+$roleColors = array(
     1 => 'badge-success',
     2 => 'badge-primary',
     3 => 'badge-info',

@@ -33,7 +33,7 @@ class Employee extends BaseController
         $data = [
             'title' => 'Crear Empleado',
             'action' => 'create',
-            'positions' => model('App\Models\Positions')->findAll()
+            'roles' => model('App\Models\Roles')->findAll()
         ];
 
         if ($this->request->is('get')) {
@@ -61,7 +61,7 @@ class Employee extends BaseController
                 'label' => 'Dirección',
                 'rules' => 'alpha_numeric_punct',
             ],
-            'position' => [
+            'role' => [
                 'label' => 'Posición',
                 'rules' => 'numeric',
             ],
@@ -78,7 +78,7 @@ class Employee extends BaseController
             'email' => $this->request->getPost('email'),
             'phone' => $this->request->getPost('phone'),
             'address' => $this->request->getPost('address'),
-            'position_id' => $this->request->getPost('position'),
+            'role_id' => $this->request->getPost('role'),
             'token' => Password::generateToken(),
             'confirmed' => 0,
         ];
@@ -119,7 +119,7 @@ class Employee extends BaseController
             'title' => 'Editar Empleado',
             'action' => 'edit',
             'id' => $id,
-            'positions' => model('App\Models\Positions')->findAll()
+            'roles' => model('App\Models\Roles')->findAll()
         ];
 
         //If the request is a get request, show the edit form
@@ -156,7 +156,7 @@ class Employee extends BaseController
                 'label' => 'Dirección',
                 'rules' => 'alpha_numeric_punct',
             ],
-            'position' => [
+            'role' => [
                 'label' => 'Posición',
                 'rules' => 'numeric',
             ]
@@ -172,7 +172,7 @@ class Employee extends BaseController
             'email' => $this->request->getPost('email'),
             'phone' => $this->request->getPost('phone'),
             'address' => $this->request->getPost('address'),
-            'position_id' => $this->request->getPost('position')
+            'role_id' => $this->request->getPost('role')
         ];
 
         $updatedEmployee = $this->employeesModel->update($id, $updatedEmployee);

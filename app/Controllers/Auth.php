@@ -38,8 +38,8 @@ class Auth extends BaseController
         $password = $this->request->getPost('password');
 
         $employee = $this->employeesModel->where('email', $email)
-            ->select('employees.*, positions.position_id, positions.description, positions.is_admin')
-            ->join('positions', 'positions.position_id = employees.position_id')
+            ->select('employees.*, roles.role_id, roles.description, roles.is_admin')
+            ->join('roles', 'roles.role_id = employees.role_id')
             ->first();
 
         if (!$employee) {
@@ -57,7 +57,7 @@ class Auth extends BaseController
             'last_name' => $employee->last_name,
             'email' => $employee->email,
             'phone' => $employee->phone,
-            'position_id' => $employee->position_id
+            'role_id' => $employee->role_id
         ];
 
         $this->session->set('isLoggedIn', true);
