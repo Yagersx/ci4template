@@ -48,52 +48,22 @@ $positionColors = array(
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped ">
+                        <table class="table table-striped" id="employees-table">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
+                                    <th>Cumpleaños</th>
                                     <th>Email</th>
                                     <th>Teléfono</th>
+                                    <th>Dirección</th>
+                                    <th>Salario</th>
                                     <th class="text-center">Posicion</th>
                                     <th class="text-center">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($employees as $employee) { ?>
-                                    <tr>
-                                        <td>
-                                            <?= $employee->name; ?>
-                                        </td>
-                                        <td>
-                                            <?= $employee->last_name; ?>
-                                        </td>
-                                        <td>
-                                            <?= $employee->email; ?>
-                                        </td>
-                                        <td>
-                                            <?= $employee->phone; ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="badge <?= $positionColors[$employee->position_id]; ?>">
-                                                <?= $employee->description; ?>
-                                            </span>
-                                        </td>
-                                        <td class="text-center">
-                                            <?php if (session()->get('employee')['position_id'] == 1) { ?>
-                                                <a href="<?php echo base_url('employees/edit/' . $employee->employee_id); ?>"
-                                                    class="btn btn-primary">Editar</a>
-                                                <?php if ($employee->position_id != 1) { ?>
-                                                    <a href="<?php echo base_url('employees/delete/' . $employee->employee_id); ?>"
-                                                        class="btn btn-danger">Eliminar</a>
-                                                <?php } ?>
-                                            <?php } else {
-                                                echo "No tienes permisos para editar o eliminar empleados";
-                                            } ?>
 
-                                        </td>
-                                    </tr>
-                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

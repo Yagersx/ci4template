@@ -37,6 +37,7 @@ $routes->match(['get', 'post'], 'auth/reset-password', 'Auth::resetPassword');
 $routes->get('dashboard', 'Dashboard::index');
 
 $routes->get('employees', 'Employee::index');
+$routes->get('employees/datatable', 'Employee::datatable');
 $routes->match(['get', 'post'], '/employees/create', 'Employee::create');
 $routes->get('/employees/edit/(:num)', 'Employee::edit/$1');
 $routes->post('/employees/edit/', 'Employee::edit');

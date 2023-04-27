@@ -22,12 +22,8 @@ class Employee extends BaseController
     {
         $data = [
             'title' => 'Lista de Empleados',
+            'scripts' => ['employees/list']
         ];
-
-        $data['employees'] = $this->employeesModel
-            ->select('employees.*, positions.*')
-            ->join('positions', 'positions.position_id = employees.position_id')
-            ->findAll();
 
         return view('employees/list', $data);
     }
@@ -206,5 +202,34 @@ class Employee extends BaseController
         $this->session->setFlashdata('msg', ['type' => 'success', 'body' => 'El empleado se ha eliminado correctamente.']);
 
         return redirect()->to('/employees');
+    }
+
+    public function datatable()
+    {
+        // Obtener los parámetros de la solicitud
+        $datatableOptions = [
+            'draw' => $this->request->getGet('draw'),
+            'start' => $this->request->getGet('start'),
+            'length' => $this->request->getGet('length'),
+            'columns' => $this->request->getGet('columns'),
+            'order' => $this->request->getGet('order') ?? null,
+            'search' => $this->request->getGet('search')['value'] ?? null,
+        ];
+
+        // Obtener la lista de empleados desde la base de datos
+        $employees = $this->employeesModel->getEmployeesForDatatable($datatableOptions);
+
+        // Obtener el número total de registros
+        $totalRecords = $this->employeesModel->countAll();
+
+        // Preparar la respuesta para DataTables
+        $response = [
+            'draw' => intval($datatableOptions['draw']),
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $totalRecords,
+            'data' => ['employees' => $employees, 'isAdmin' => $this->session->get('isAdmin')],
+        ];
+
+        return $this->response->setJSON($response);
     }
 }
