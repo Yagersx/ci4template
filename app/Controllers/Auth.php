@@ -37,7 +37,10 @@ class Auth extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        $employee = $this->employeesModel->where('email', $email)->first();
+        $employee = $this->employeesModel->where('email', $email)
+            ->select('employees.*, positions.position_id, positions.description, positions.is_admin')
+            ->join('positions', 'positions.position_id = employees.position_id')
+            ->first();
 
         if (!$employee) {
             return redirect()->back()->withInput()->with('msg', ['type' => 'danger', 'body' => 'El usuario o contraseña son invalidos. Intentelo de nuevo.']);
