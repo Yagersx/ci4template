@@ -40,11 +40,12 @@ class Auth extends BaseController
         $employee = $this->employeesModel->where('email', $email)->first();
 
         if (!$employee) {
-            return redirect()->back()->withInput()->with('errors', ['email' => 'El usuario o contraseña son invalidos. Intentelo de nuevo.']);
+            return redirect()->back()->withInput()->with('msg', ['type' => 'danger', 'body' => 'El usuario o contraseña son invalidos. Intentelo de nuevo.']);
         }
 
         if (!Password::verifyPassword($password, $employee->password)) {
-            return redirect()->back()->withInput()->with('errors', ['password' => 'El usuario o contraseña son invalidos. Intentelo de nuevo.']);
+            return redirect()->back()->withInput()->with('msg', ['type' => 'danger', 'body' => 'El usuario o contraseña son invalidos. Intentelo de nuevo.']);
+
         }
 
         $employeeSession = [
