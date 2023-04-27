@@ -57,7 +57,6 @@ $positionColors = array(
                                     <th>Email</th>
                                     <th>Teléfono</th>
                                     <th>Dirección</th>
-                                    <th>Salario</th>
                                     <th class="text-center">Posicion</th>
                                     <th class="text-center">Acciones</th>
                                 </tr>

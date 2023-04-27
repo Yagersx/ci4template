@@ -26,7 +26,6 @@ jQuery(function () {
             { data: 'email' },
             { data: 'phone' },
             { data: 'address' },
-            { data: 'salary' },
             { data: 'description' },
             {
                 data: 'employee_id', render: function (data, type, row, meta) {
