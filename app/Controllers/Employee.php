@@ -51,7 +51,10 @@ class Employee extends BaseController
             ],
             'email' => [
                 'label' => 'Email',
-                'rules' => 'required|valid_email',
+                'rules' => 'required|valid_email|is_unique[employees.email]',
+                'errors' => [
+                    'is_unique' => 'Ya existe un empleado con ese email.'
+                ]
             ],
             'phone' => [
                 'label' => 'Teléfono',
@@ -146,7 +149,7 @@ class Employee extends BaseController
             ],
             'email' => [
                 'label' => 'Email',
-                'rules' => 'required|valid_email',
+                'rules' => 'required|valid_email|is_unique[employees.email]',
             ],
             'phone' => [
                 'label' => 'Teléfono',
