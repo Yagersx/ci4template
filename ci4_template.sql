@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
 
 -- Volcando datos para la tabla ci4_template.employees: ~1 rows (aproximadamente)
 INSERT INTO `employees` (`employee_id`, `name`, `last_name`, `birthday`, `email`, `phone`, `address`, `salary`, `role_id`, `password`, `token`, `confirmed`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-	(1, 'Admin', 'CI4', NULL, 'admin@ci4domain.com', '1234567891', 'ci4Dir', 0, 1, '$2y$12$2jw6Ylmv99SCyEVTtm5YEulcUVxV9lH1tNg2yAtWQuWQ10E6rGf.6', NULL, 1, '2023-04-24 22:26:17', 1, '2023-04-27 18:58:43', 1, NULL, NULL);
+	(1, 'Admin', 'CI4', NULL, 'admin@ci4.com', '1234567891', 'ci4Dir', 0, 1, '$2y$12$2jw6Ylmv99SCyEVTtm5YEulcUVxV9lH1tNg2yAtWQuWQ10E6rGf.6', NULL, 1, '2023-04-24 22:26:17', 1, '2023-04-27 18:58:43', 1, NULL, NULL);
 
 -- Volcando estructura para tabla ci4_template.roles
 CREATE TABLE IF NOT EXISTS `roles` (
