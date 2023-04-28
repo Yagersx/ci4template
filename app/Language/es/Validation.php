@@ -24,6 +24,7 @@ return [
     'alpha_numeric'         => 'El campo {field} solo puede contener caracteres alfanuméricos.',
     'alpha_numeric_punct'   => 'El campo {field} solo puede contener caracteres alfanuméricos, espacios, y los caracteres ~ ! # $ % & * - _ + = | : . .',
     'alpha_numeric_space'   => 'El campo {field} solo puede contener caracteres alfanuméricos y espacios.',
+    'alpha_numeric_accent'  => 'El campo {field} solo puede contener caracteres alfanuméricos con acentos, espacios y los caracteres # - : . ,',
     'alpha_space'           => 'El campo {field} solo puede contener caracteres alfabéticos y espacios.',
     'decimal'               => 'El campo {field} debe contener un número decimal.',
     'differs'               => 'El campo {field} debe diferir del campo {param}.',

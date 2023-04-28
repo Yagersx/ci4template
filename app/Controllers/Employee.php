@@ -43,11 +43,11 @@ class Employee extends BaseController
         $rules = [
             'name' => [
                 'label' => 'Nombre',
-                'rules' => 'required|alpha_numeric_space',
+                'rules' => 'required|alpha_numeric_accent',
             ],
             'last_name' => [
                 'label' => 'Apellido',
-                'rules' => 'required|alpha_numeric_space',
+                'rules' => 'required|alpha_numeric_accent',
             ],
             'email' => [
                 'label' => 'Email',
@@ -59,7 +59,7 @@ class Employee extends BaseController
             ],
             'address' => [
                 'label' => 'Dirección',
-                'rules' => 'alpha_numeric_punct',
+                'rules' => 'alpha_numeric_accent',
             ],
             'role' => [
                 'label' => 'Posición',
@@ -138,11 +138,11 @@ class Employee extends BaseController
         $rules = [
             'name' => [
                 'label' => 'Nombre',
-                'rules' => 'required|alpha_numeric_space',
+                'rules' => 'required|alpha_numeric_accent',
             ],
             'last_name' => [
                 'label' => 'Apellido',
-                'rules' => 'required|alpha_numeric_space',
+                'rules' => 'required|alpha_numeric_accent',
             ],
             'email' => [
                 'label' => 'Email',
@@ -154,7 +154,7 @@ class Employee extends BaseController
             ],
             'address' => [
                 'label' => 'Dirección',
-                'rules' => 'alpha_numeric_punct',
+                'rules' => 'alpha_numeric_accent',
             ],
             'role' => [
                 'label' => 'Posición',
