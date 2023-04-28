@@ -15,19 +15,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Volcando estructura de base de datos para ci4_db
+-- Volcando estructura de base de datos para ci4_template
 CREATE DATABASE IF NOT EXISTS `ci4_template` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci */;
-<<<<<<< HEAD
-<<<<<<< HEAD
-USE `ci4_template`;
-=======
-USE `ci4_db`;
->>>>>>> 0c7eb8a (parent 39d4cc89a83ff2d58a327dc13997ee96274dd90a)
-=======
-USE `ci4_template`;
->>>>>>> 210b57e (test)
 
--- Volcando estructura para tabla ci4_db.employees
+USE `ci4_template`;
+
+
+-- Volcando estructura para tabla ci4_template.employees
 CREATE TABLE IF NOT EXISTS `employees` (
   `employee_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -52,11 +46,11 @@ CREATE TABLE IF NOT EXISTS `employees` (
   CONSTRAINT `FK1_employees_role` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
--- Volcando datos para la tabla ci4_db.employees: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla ci4_template.employees: ~1 rows (aproximadamente)
 INSERT INTO `employees` (`employee_id`, `name`, `last_name`, `birthday`, `email`, `phone`, `address`, `salary`, `role_id`, `password`, `token`, `confirmed`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
 	(1, 'Admin', 'CI4', NULL, 'admin@ci4domain.com', '1234567891', 'ci4Dir', 0, 1, '$2y$12$2jw6Ylmv99SCyEVTtm5YEulcUVxV9lH1tNg2yAtWQuWQ10E6rGf.6', NULL, 1, '2023-04-24 22:26:17', 1, '2023-04-27 18:58:43', 1, NULL, NULL);
 
--- Volcando estructura para tabla ci4_db.roles
+-- Volcando estructura para tabla ci4_template.roles
 CREATE TABLE IF NOT EXISTS `roles` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(50) NOT NULL,
@@ -67,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   PRIMARY KEY (`role_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
--- Volcando datos para la tabla ci4_db.roles: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla ci4_template.roles: ~1 rows (aproximadamente)
 INSERT INTO `roles` (`role_id`, `description`, `created_at`, `updated_at`, `deleted_at`, `is_admin`) VALUES
 	(1, 'Administrador', '2023-04-24 00:33:09', NULL, NULL, b'1');
 
