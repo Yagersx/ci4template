@@ -55,7 +55,9 @@ class Employees extends Model
 
     protected function deletedBy(array $data)
     {
-        $data['data']['deleted_by'] = session()->get('employee')['employee_id'];
+        //delete() no actualiza los callbacks, solo borra, por lo que se debe actualizar manualmente antes de "eliminar" el registro
+        $toUpdate['deleted_by'] = session()->get('employee')['employee_id'];
+        $this->update($data['id'], $toUpdate);
         return $data;
     }
 
