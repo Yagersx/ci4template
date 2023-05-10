@@ -18,7 +18,9 @@ Need composer and run next command "composer install"
 Rename .env.example to .env
 
 1.-Need to add new smtp user and password in .env
+
 2.-Set new credentials for your db in .env
+
 3.-Set a new secret pepper in .env
 
 4.-Need to setup your db and create employees table, the script comes in repository and it have the admin user.
@@ -26,5 +28,7 @@ Rename .env.example to .env
 credentials to login:
   user: admin@ci4.com
   password: Adminci4!
+  
+5.-click on forgot password to send a new token and encrypt your password with the new secret_pepper_key
 
 Admintle is located in public/dist on css/ and js/ its plugins are located in /public/plugins
